@@ -37,10 +37,11 @@ public class InteractiveFiction {
 			}
 
 			// Show a user the ways out of this place.
-			List<Exit> exits = here.getVisibleExits();
+			List<Exit> visible_exits = here.getVisibleExits();
 			
-			for (int i=0; i<exits.size(); i++) {
-			    Exit e = exits.get(i);
+			for (int i=0; i<visible_exits.size(); i++) 
+			{
+			    Exit e = visible_exits.get(i);
 				System.out.println(" ["+i+"] " + e.getDescription());
 			}
 
@@ -57,7 +58,7 @@ public class InteractiveFiction {
 			// Get the word they typed as lowercase, and no spaces.
 			String action = words.get(0).toLowerCase().trim();
 			
-			if (action.equals("quit")) {
+			if (action.equals("escape") || action.equals("q")) {
 				if (input.confirm("Are you sure you want to quit?")) {
 					break;
 				} else {
@@ -74,13 +75,13 @@ public class InteractiveFiction {
 				continue;
 			}
 			
-			if (exitNum < 0 || exitNum > exits.size()) {
+			if (exitNum < 0 || exitNum > visible_exits.size()) {
 				System.out.println("I don't know what to do with that number!");
 				continue;
 			}
 
 			// Move to the room they indicated.
-			Exit destination = exits.get(exitNum);
+			Exit destination = visible_exits.get(exitNum);
 			place = destination.getTarget();
 		}
 

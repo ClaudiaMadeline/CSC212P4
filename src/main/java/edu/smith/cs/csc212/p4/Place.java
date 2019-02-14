@@ -14,6 +14,10 @@ public class Place {
 	 * This is a list of places we can get to from this place.
 	 */
 	private List<Exit> exits;
+	/*
+	 * This is a list of exits that are visible to the user.
+	 */
+	private List<Exit> visible_exits;
 	/**
 	 * This is the identifier of the place.
 	 */
@@ -37,6 +41,7 @@ public class Place {
 		this.id = id;
 		this.description = description;
 		this.exits = new ArrayList<>();
+		this.visible_exits = new ArrayList<>();
 		this.terminal = terminal;
 	}
 	
@@ -44,8 +49,13 @@ public class Place {
 	 * Create an exit for the user to navigate to another Place.
 	 * @param exit - the description and target of the other Place.
 	 */
-	public void addExit(Exit exit) {
+	public void addExit(Exit exit) 
+	{
 		this.exits.add(exit);
+		if(!exit.isSecret())
+		{
+			this.visible_exits.add(exit);
+		}
 	}
 	
 	/**
@@ -74,10 +84,11 @@ public class Place {
 
 	/**
 	 * Get a view of the exits from this Place, for navigation.
-	 * @return all the exits from this place.
+	 * @return all the exits that are not secret from this place.
 	 */
-	public List<Exit> getVisibleExits() {
-		return Collections.unmodifiableList(exits);
+	public List<Exit> getVisibleExits() 
+	{
+		return Collections.unmodifiableList(visible_exits);
 	}
 	
 	/**

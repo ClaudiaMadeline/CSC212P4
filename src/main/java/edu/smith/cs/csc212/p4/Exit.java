@@ -76,4 +76,14 @@ public class Exit {
 		}
 		return false;
 	}
+	
+	public boolean isSecret()
+	{
+		return false;
+	}
+	
+	public void search()
+	{
+		
+	}
 }
